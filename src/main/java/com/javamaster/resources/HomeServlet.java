@@ -4,15 +4,20 @@
  */
 package com.javamaster.resources;
 
+import com.javamaster.resources.exception.AuthException;
 import com.javamaster.resources.model.UsersModel;
+import com.javamaster.resources.service.UserServiceImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,16 +39,54 @@ public class HomeServlet extends HttpServlet {
         String uri = request.getRequestURI();
         System.out.println(uri);
         if(uri.equals("/main-page")){
+            if(request.getSession().getAttribute("user") == null){
+                request.setAttribute("errorMessage", "User is not authenticated");
+                request.getRequestDispatcher("/WEB-INF/view/error.jsp").forward(request, response);
+            }
             List<UsersModel> users = new ArrayList<>();
-            users.add(new UsersModel("Glodi","mukomo25@gmail", 45));
-            users.add(new UsersModel("Cecile","Cecile2@gmail", 35));
+            users.add(new UsersModel("Glodi","mukomo29@gmail", 45));
+            users.add(new UsersModel("Rudis","Rudis2@gmail", 35));
             users.add(new UsersModel("Abigail","Abigail25@gmail", 25));
-            users.add(new UsersModel("Lunda","Lunda25@gmail", 15));
+            users.add(new UsersModel("Lolita","Lolita25@gmail", 15));
             String userName = request.getParameter("userName");
             request.setAttribute("users", users);
             request.setAttribute("welcomeMessage", "Hi user" + userName);
             request.getRequestDispatcher("/WEB-INF/view/main-page.jsp").forward(request, response);
-        }else{
+        }else if(uri.equals("/register")){
+            String method = request.getMethod();
+            System.out.println(method);
+            if(method.equals("GET")){
+                request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+            }else{
+                String email = request.getParameter("email");
+                String password = request.getParameter("password");
+                String name = request.getParameter("name");
+                UserServiceImpl.getInstance().register(email, password, name);
+                response.sendRedirect("/login");
+            }
+            
+        }else if(uri.equals("/login")){
+            String method = request.getMethod();
+            if(method.equals("GET")){
+                request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+            }else{
+                String email = request.getParameter("email");
+                String password = request.getParameter("password");
+                
+                try {
+                    UsersModel user = UserServiceImpl.getInstance().auth(email, password);
+                    HttpSession session = request.getSession();
+                    session.setAttribute("user", user);
+                    response.sendRedirect("/main-page");
+                } catch (AuthException ex) {
+                    request.setAttribute("errorMessage", ex.getMessage());
+                    request.getRequestDispatcher("/WEB-INF/view/error.jsp").forward(request, response);
+                }
+                
+                
+            }    
+        }
+        else{
             request.getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request, response);
         }
         

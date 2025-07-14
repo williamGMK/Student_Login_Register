@@ -15,5 +15,6 @@
             <input type="text" name="userName" placeholder="Please enter your name">
             <input type="submit" value="Navigate to the main page">
         </form>
+        <a href="/register">Navigate to register form</a>
     </body>
 </html>
