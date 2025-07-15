@@ -202,13 +202,20 @@
 				</div>
                                 <div class="login__field">
 					<i class="login__icon fas fa-lock"></i>
-					<input name="name" type="password" class="login__input" placeholder="Please Enter Your name">
+					<input name="name" type="text" class="login__input" placeholder="Please Enter Your name">
 				</div>
 				<button class="button login__submit">
 					<span class="button__text">Register</span>
 					<i class="button__icon fas fa-chevron-right"></i>
 				</button>				
 			</form>	
+                    <--!User Feedback-->
+                    <% if (request.getAttribute("errorMessage") != null) { %>
+                    <p style="color:red;"><%= request.getAttribute("errorMessage") %></p>
+                    <% } else if (request.getAttribute("successMessage") != null) { %>
+                    <p style="color:green;"><%= request.getAttribute("successMessage") %></p>
+                    <% } %>
+
 		</div>
 		<div class="screen__background">
 			<span class="screen__background__shape screen__background__shape4"></span>

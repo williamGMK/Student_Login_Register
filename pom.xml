@@ -27,10 +27,11 @@
             <scope>provided</scope>
         </dependency>
         <!-- Add PostgreSQL JDBC driver -->
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.5.4</version>
+            <version>42.7.7</version>
         </dependency>
         <!-- Add JSTL for JSP -->
         <dependency>

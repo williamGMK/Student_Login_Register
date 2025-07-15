@@ -206,6 +206,10 @@
 					<i class="button__icon fas fa-chevron-right"></i>
 				</button>				
 			</form>	
+                    <% if (request.getAttribute("errorMessage") != null) { %>
+                    <p style="color:red;"><%= request.getAttribute("errorMessage") %></p>
+                    <% } %>
+
 		</div>
 		<div class="screen__background">
 			<span class="screen__background__shape screen__background__shape4"></span>

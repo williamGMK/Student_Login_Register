@@ -26,24 +26,23 @@
                 </style>    
     </head>
     <body>
-        <h1>You're on the main page!</h1>
+       
         <p>${welcomeMessage}</p>
+        <h1>You have successfully logged in.</h1>
         
-        
-            
-                    <table>
-          <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Email</th>
-          </tr>
-          <c:forEach items="${users}" var="user">
-          <tr>
-            <td>${user.name}</td>
-            <td>${user.age}</td>
-            <td>${user.email}</td>
-          </tr>
-        </c:forEach>
+         <table>
+            <tr>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Email</th>
+            </tr>
+            <c:forEach items="${users}" var="user">
+            <tr>
+              <td>${user.name}</td>
+              <td>${user.age}</td>
+              <td>${user.email}</td>
+            </tr>
+          </c:forEach>
         </table>
     </body>
 </html>

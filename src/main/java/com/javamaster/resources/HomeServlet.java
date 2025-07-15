@@ -61,8 +61,14 @@ public class HomeServlet extends HttpServlet {
                 String email = request.getParameter("email");
                 String password = request.getParameter("password");
                 String name = request.getParameter("name");
+                System.out.println("Registering: " + email + ", " + password + ", " + name);
+
+                //UserServiceImpl.getInstance().register(email, password, name);
+                //response.sendRedirect("/login");
                 UserServiceImpl.getInstance().register(email, password, name);
-                response.sendRedirect("/login");
+                request.setAttribute("successMessage", "Registration successful. Please login.");
+                request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+
             }
             
         }else if(uri.equals("/login")){
