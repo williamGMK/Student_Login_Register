@@ -78,7 +78,7 @@
         <h1>welcome to the application!</h1>
         <h2>Please stay tuned we will add more features!</h2>
         
-        <form method="get" action="/main-page">
+        <form method="get" action="/error">
             <input type="submit" value="Navigate to the main page">
         </form>
         <a href="/register">Sign Up</a>
